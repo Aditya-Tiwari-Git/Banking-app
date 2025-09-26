@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankTech Support - User Dashboard</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-university"></i>
+                    <span>BankTech</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#" data-page="overview">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Overview</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-page="create-ticket">
+                            <i class="fas fa-plus-circle"></i>
+                            <span>Create Ticket</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-page="my-tickets">
+                            <i class="fas fa-ticket-alt"></i>
+                            <span>My Tickets</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-page="knowledge-base">
+                            <i class="fas fa-book"></i>
+                            <span>Knowledge Base</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" id="userName">User Name</span>
+                        <span class="user-role">Customer</span>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <button class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 id="pageTitle">Dashboard Overview</h1>
+                </div>
+                <div class="header-right">
+                    <div class="notification-bell">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                    <div class="user-menu">
+                        <span id="userDisplayName">Welcome back!</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Overview Page -->
+                <div id="overview" class="page-content active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-ticket-alt"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Total Tickets</h3>
+                                <div class="stat-number">12</div>
+                                <div class="stat-change positive">+2 this week</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Pending</h3>
+                                <div class="stat-number">4</div>
+                                <div class="stat-change neutral">Awaiting response</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Resolved</h3>
+                                <div class="stat-number">7</div>
+                                <div class="stat-change positive">87% resolved</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>High Priority</h3>
+                                <div class="stat-number">1</div>
+                                <div class="stat-change negative">Needs attention</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity">
+                        <div class="activity-header">
+                            <h2>Recent Activity</h2>
+                            <button class="btn-secondary">View All</button>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-comment"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>Engineer updated</strong> your ticket #TKT-001</p>
+                                    <span class="activity-time">2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p><strong>Ticket resolved</strong> - Account access issue</p>
+                                    <span class="activity-time">1 day ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create Ticket Page -->
+                <div id="create-ticket" class="page-content">
+                    <div class="create-ticket-container">
+                        <div class="page-header">
+                            <h2>Create New Ticket</h2>
+                            <p>Describe your issue and our team will assist you promptly</p>
+                        </div>
+
+                        <form class="ticket-form" id="ticketForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="ticketCategory">Category</label>
+                                    <select id="ticketCategory" required>
+                                        <option value="">Select Category</option>
+                                        <option value="Account Services">Account Services</option>
+                                        <option value="Online Banking">Online Banking</option>
+                                        <option value="Cards & Payments">Cards & Payments</option>
+                                        <option value="Loans & Mortgages">Loans & Mortgages</option>
+                                        <option value="Investment Services">Investment Services</option>
+                                        <option value="Technical Issues">Technical Issues</option>
+                                        <option value="General Inquiry">General Inquiry</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ticketPriority">Priority</label>
+                                    <select id="ticketPriority" required>
+                                        <option value="Low">Low</option>
+                                        <option value="Medium" selected>Medium</option>
+                                        <option value="High">High</option>
+                                        <option value="Critical">Critical</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ticketSubject">Subject</label>
+                                <input type="text" id="ticketSubject" placeholder="Brief description of your issue" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ticketDescription">Description</label>
+                                <textarea id="ticketDescription" rows="6" placeholder="Please provide detailed information about your issue..." required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ticketAttachment">Attachments (Optional)</label>
+                                <div class="file-upload-area">
+                                    <input type="file" id="ticketAttachment" multiple accept=".jpg,.jpeg,.png,.pdf,.doc,.docx">
+                                    <div class="file-upload-text">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p>Drag & drop files here or click to browse</p>
+                                        <small>Supported: JPG, PNG, PDF, DOC (Max 10MB each)</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary">Save as Draft</button>
+                                <button type="submit" class="btn-primary">Submit Ticket</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- My Tickets Page -->
+                <div id="my-tickets" class="page-content">
+                    <div class="tickets-container">
+                        <div class="page-header">
+                            <h2>My Tickets</h2>
+                            <div class="tickets-filters">
+                                <select id="statusFilter">
+                                    <option value="all">All Status</option>
+                                    <option value="open">Open</option>
+                                    <option value="in-progress">In Progress</option>
+                                    <option value="resolved">Resolved</option>
+                                    <option value="closed">Closed</option>
+                                </select>
+                                <input type="text" placeholder="Search tickets..." class="search-input">
+                            </div>
+                        </div>
+
+                        <div class="tickets-list" id="ticketsList">
+                            <!-- Tickets will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Knowledge Base Page -->
+                <div id="knowledge-base" class="page-content">
+                    <div class="kb-container">
+                        <div class="page-header">
+                            <h2>Knowledge Base</h2>
+                            <p>Find answers to common banking questions</p>
+                        </div>
+
+                        <div class="kb-search">
+                            <input type="text" placeholder="Search knowledge base..." class="search-input">
+                            <button class="btn-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+
+                        <div class="kb-categories">
+                            <div class="kb-category">
+                                <div class="kb-icon">
+                                    <i class="fas fa-credit-card"></i>
+                                </div>
+                                <h3>Cards & Payments</h3>
+                                <p>Credit cards, debit cards, and payment issues</p>
+                                <span class="kb-count">15 articles</span>
+                            </div>
+                            <div class="kb-category">
+                                <div class="kb-icon">
+                                    <i class="fas fa-laptop"></i>
+                                </div>
+                                <h3>Online Banking</h3>
+                                <p>Login issues, features, and mobile app help</p>
+                                <span class="kb-count">23 articles</span>
+                            </div>
+                            <div class="kb-category">
+                                <div class="kb-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <h3>Loans & Mortgages</h3>
+                                <p>Loan applications, payments, and mortgage info</p>
+                                <span class="kb-count">18 articles</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/user-dashboard.js"></script>
+</body>
+</html>

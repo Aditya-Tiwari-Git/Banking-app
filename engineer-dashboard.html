@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankTech Support - Engineer Dashboard</title>
+    <link rel="stylesheet" href="css/engineer-dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-university"></i>
+                    <span>BankTech</span>
+                </div>
+                <div class="engineer-badge">
+                    <i class="fas fa-wrench"></i>
+                    <span>Engineer Portal</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#" data-page="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-page="queue">
+                            <i class="fas fa-list-alt"></i>
+                            <span>Ticket Queue</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-page="assigned">
+                            <i class="fas fa-user-check"></i>
+                            <span>Assigned to Me</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-page="team">
+                            <i class="fas fa-users"></i>
+                            <span>Team View</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-page="analytics">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Analytics</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar engineer">
+                        <i class="fas fa-user-cog"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" id="engineerName">Engineer</span>
+                        <span class="user-role" id="engineerGroup">Assignment Group</span>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <button class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 id="pageTitle">Engineer Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="quick-actions">
+                        <button class="quick-action-btn" title="Quick Assign">
+                            <i class="fas fa-bolt"></i>
+                        </button>
+                        <button class="quick-action-btn" title="Bulk Actions">
+                            <i class="fas fa-tasks"></i>
+                        </button>
+                    </div>
+                    <div class="notification-bell">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">7</span>
+                    </div>
+                    <div class="status-indicator online">
+                        <span>Online</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Dashboard Overview -->
+                <div id="dashboard" class="page-content active">
+                    <div class="metrics-row">
+                        <div class="metric-card priority-high">
+                            <div class="metric-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="metric-content">
+                                <h3>High Priority</h3>
+                                <div class="metric-number">3</div>
+                                <div class="metric-trend">+1 today</div>
+                            </div>
+                        </div>
+                        <div class="metric-card assigned">
+                            <div class="metric-icon">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div class="metric-content">
+                                <h3>Assigned to Me</h3>
+                                <div class="metric-number">8</div>
+                                <div class="metric-trend">2 overdue</div>
+                            </div>
+                        </div>
+                        <div class="metric-card resolved">
+                            <div class="metric-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="metric-content">
+                                <h3>Resolved Today</h3>
+                                <div class="metric-number">5</div>
+                                <div class="metric-trend">Above average</div>
+                            </div>
+                        </div>
+                        <div class="metric-card sla">
+                            <div class="metric-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="metric-content">
+                                <h3>SLA Performance</h3>
+                                <div class="metric-number">94%</div>
+                                <div class="metric-trend">On target</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <div class="dashboard-section">
+                            <div class="section-header">
+                                <h3>Priority Queue</h3>
+                                <button class="btn-secondary">View All</button>
+                            </div>
+                            <div class="priority-tickets" id="priorityTickets">
+                                <!-- Priority tickets will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div class="dashboard-section">
+                            <div class="section-header">
+                                <h3>Team Performance</h3>
+                                <select class="period-selector">
+                                    <option>This Week</option>
+                                    <option>This Month</option>
+                                </select>
+                            </div>
+                            <div class="team-stats">
+                                <div class="team-member">
+                                    <div class="member-info">
+                                        <span class="member-name">John Smith</span>
+                                        <span class="member-group">Network Team</span>
+                                    </div>
+                                    <div class="member-metrics">
+                                        <span class="resolved-count">12</span>
+                                        <span class="avg-time">2.3h avg</span>
+                                    </div>
+                                </div>
+                                <div class="team-member">
+                                    <div class="member-info">
+                                        <span class="member-name">Sarah Wilson</span>
+                                        <span class="member-group">Application Team</span>
+                                    </div>
+                                    <div class="member-metrics">
+                                        <span class="resolved-count">8</span>
+                                        <span class="avg-time">1.8h avg</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ticket Queue -->
+                <div id="queue" class="page-content">
+                    <div class="queue-header">
+                        <h2>Ticket Queue</h2>
+                        <div class="queue-filters">
+                            <select id="priorityFilter">
+                                <option value="all">All Priorities</option>
+                                <option value="critical">Critical</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                            <select id="categoryFilter">
+                                <option value="all">All Categories</option>
+                                <option value="Account Services">Account Services</option>
+                                <option value="Online Banking">Online Banking</option>
+                                <option value="Cards & Payments">Cards & Payments</option>
+                                <option value="Technical Issues">Technical Issues</option>
+                            </select>
+                            <button class="btn-primary" onclick="refreshQueue()">
+                                <i class="fas fa-sync-alt"></i>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="ticket-table-container">
+                        <table class="ticket-table">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="selectAll"></th>
+                                    <th>Ticket ID</th>
+                                    <th>Priority</th>
+                                    <th>Subject</th>
+                                    <th>Category</th>
+                                    <th>Customer</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="queueTableBody">
+                                <!-- Tickets populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Assigned Tickets -->
+                <div id="assigned" class="page-content">
+                    <div class="assigned-header">
+                        <h2>My Assigned Tickets</h2>
+                        <div class="workload-indicator">
+                            <span class="workload-label">Current Workload:</span>
+                            <div class="workload-bar">
+                                <div class="workload-fill" style="width: 65%"></div>
+                            </div>
+                            <span class="workload-text">8/12 tickets</span>
+                        </div>
+                    </div>
+
+                    <div class="assigned-tickets-grid" id="assignedTicketsGrid">
+                        <!-- Assigned tickets will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Team View -->
+                <div id="team" class="page-content">
+                    <div class="team-overview">
+                        <h2>Team Overview</h2>
+                        <div class="team-metrics">
+                            <div class="team-metric">
+                                <i class="fas fa-users"></i>
+                                <span>5 Engineers Online</span>
+                            </div>
+                            <div class="team-metric">
+                                <i class="fas fa-ticket-alt"></i>
+                                <span>23 Active Tickets</span>
+                            </div>
+                            <div class="team-metric">
+                                <i class="fas fa-clock"></i>
+                                <span>2.1h Avg Resolution</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="assignment-groups">
+                        <div class="group-card">
+                            <h3>Network Infrastructure</h3>
+                            <div class="group-engineers">
+                                <div class="engineer-item">
+                                    <span class="engineer-name">John Smith (e123)</span>
+                                    <span class="ticket-count">4 tickets</span>
+                                </div>
+                                <div class="engineer-item">
+                                    <span class="engineer-name">Mike Johnson (e124)</span>
+                                    <span class="ticket-count">2 tickets</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group-card">
+                            <h3>Application Support</h3>
+                            <div class="group-engineers">
+                                <div class="engineer-item">
+                                    <span class="engineer-name">Sarah Wilson (e125)</span>
+                                    <span class="ticket-count">3 tickets</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group-card">
+                            <h3>Security Team</h3>
+                            <div class="group-engineers">
+                                <div class="engineer-item">
+                                    <span class="engineer-name">David Brown (e126)</span>
+                                    <span class="ticket-count">5 tickets</span>
+                                </div>
+                                <div class="engineer-item">
+                                    <span class="engineer-name">Lisa Anderson (e127)</span>
+                                    <span class="ticket-count">3 tickets</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics -->
+                <div id="analytics" class="page-content">
+                    <div class="analytics-header">
+                        <h2>Performance Analytics</h2>
+                        <div class="time-range-selector">
+                            <button class="time-btn active">7 Days</button>
+                            <button class="time-btn">30 Days</button>
+                            <button class="time-btn">90 Days</button>
+                        </div>
+                    </div>
+
+                    <div class="analytics-grid">
+                        <div class="chart-container">
+                            <h3>Ticket Volume Trend</h3>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-line"></i>
+                                <p>Chart visualization would go here</p>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <h3>Resolution Time Distribution</h3>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-bar"></i>
+                                <p>Chart visualization would go here</p>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <h3>Category Breakdown</h3>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-pie"></i>
+                                <p>Chart visualization would go here</p>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <h3>SLA Compliance</h3>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-area"></i>
+                                <p>Chart visualization would go here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Ticket Detail Modal -->
+    <div id="ticketModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h2 id="modalTicketTitle">Ticket Details</h2>
+                <button class="close-btn" onclick="closeTicketModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="ticketModalBody">
+                <!-- Ticket details will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/engineer-dashboard.js"></script>
+</body>
+</html>
